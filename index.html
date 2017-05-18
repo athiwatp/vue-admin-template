@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue.js Admin Template</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
+    <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div id="adminApp">
+        <v-app class="elevation-1" top-toolbar left-sidebar>
+            <header>
+                <v-toolbar class="light-blue darken-2">
+                    <v-toolbar-side-icon class="hidden-lg-and-up" @click.native.stop="sidebar = !sidebar"></v-toolbar-side-icon>
+                    <v-toolbar-logo>Vue Admin Template</v-toolbar-logo>
+                    <v-toolbar-items>
+                        <v-toolbar-item>Home</v-toolbar-item>
+                        <v-toolbar-item>Contact</v-toolbar-item>
+                        <v-menu bottom left offset-y origin="top right" transition="v-slide-y-transition">
+                        <v-btn icon dark slot="activator">
+                            <v-icon>more_vert</v-icon>
+                        </v-btn>
+                        <v-list>
+                            <v-list-item v-for="(item, i) in dropdown_items" :key="i">
+                            <v-list-tile>
+                                <v-list-tile-title v-text="item.title"></v-list-tile-title>
+                            </v-list-tile>
+                            </v-list-item>
+                        </v-list>
+                        </v-menu>
+                    </v-toolbar-items>
+                </v-toolbar>
+            </header>
+            <main>
+                <v-sidebar v-model="sidebar" height="auto">
+                    <v-list dense>
+                        <template v-for="(item,i) in itemGroup">
+                            <v-list-group v-if="item.items">
+                                <v-list-item slot="item">
+                                    <v-list-tile ripple>
+                                        <v-list-tile-title v-text="item.title" />
+                                        <v-list-tile-action>
+                                            <v-icon>keyboard_arrow_down</v-icon>
+                                        </v-list-tile-action>
+                                    </v-list-tile>
+                                </v-list-item>
+                                <v-list-item v-for="(subItem,i) in item.items" :key="i">
+                                    <v-list-tile ripple>
+                                        <v-list-tile-title v-text="subItem.title" />
+                                    </v-list-tile>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-subheader v-else-if="item.header" v-text="item.header"></v-subheader>
+                            <v-divider v-else-if="item.divider" light></v-divider>
+                            <v-list-item v-else>
+                            <v-list-tile ripple avatar>
+                                <v-list-tile-avatar>
+                                    <v-icon>{{ item.icon }}</v-icon>
+                                </v-list-tile-avatar>
+                                <v-list-tile-content>
+                                    <v-list-tile-title v-text="item.title" />
+                                </v-list-tile-content>
+                            </v-list-tile>
+                            </v-list-item>
+                        </template>
+                    </v-list>
+                </v-sidebar>
+                <v-content>
+                    <v-container fluid class="pa-3">
+                        <h4>Dashboard</h4>
+                        <v-row>
+                            <v-col xs12 sm12 md3 xl3>
+                                <v-card horizontal>
+                                    <v-card-row height="130px" class="light-blue lighten-2 white--text">
+                                        <v-icon style="font-size: 60px; display: table; margin: 0 auto;">settings</v-icon>
+                                    </v-card-row>
+                                    <v-card-column>
+                                    <v-card-row height="75px">
+                                        <v-card-text>
+                                        <strong>CPU TRAFFIC</strong>
+                                        <div style="font-size: 40px;">90%</div>
+                                        </v-card-text>
+                                    </v-card-row>
+                                    </v-card-column>
+                                </v-card> 
+                            </v-col>
+                            <v-col xs12 sm12 md3 xl3>
+                                <v-card horizontal>
+                                    <v-card-row height="130px" class="red lighten-1 white--text">
+                                        <v-icon style="font-size: 60px; display: table; margin: 0 auto;">thumb_up</v-icon>
+                                    </v-card-row>
+                                    <v-card-column>
+                                    <v-card-row height="75px">
+                                        <v-card-text>
+                                        <strong>Likes</strong>
+                                        <div style="font-size: 40px;">41,410</div>
+                                        </v-card-text>
+                                    </v-card-row>
+                                    </v-card-column>
+                                </v-card> 
+                            </v-col>
+                            <v-col xs12 sm12 md3 xl3>
+                                <v-card horizontal>
+                                    <v-card-row height="130px" class="green darken-1 white--text">
+                                        <v-icon style="font-size: 60px; display: table; margin: 0 auto;">shopping_cart</v-icon>
+                                    </v-card-row>
+                                    <v-card-column>
+                                    <v-card-row height="75px">
+                                        <v-card-text>
+                                        <strong>Sales</strong>
+                                        <div style="font-size: 40px;">760</div>
+                                        </v-card-text>
+                                    </v-card-row>
+                                    </v-card-column>
+                                </v-card> 
+                            </v-col>
+                            <v-col xs12 sm12 md3 xl3>
+                                <v-card horizontal>
+                                    <v-card-row height="130px" class="yellow darken-3 white--text">
+                                        <v-icon style="font-size: 60px; display: table; margin: 0 auto;">supervisor_account</v-icon>
+                                    </v-card-row>
+                                    <v-card-column>
+                                    <v-card-row height="75px">
+                                        <v-card-text>
+                                        <strong>New Members</strong>
+                                        <div style="font-size: 40px;">2,000</div>
+                                        </v-card-text>
+                                    </v-card-row>
+                                    </v-card-column>
+                                </v-card> 
+                            </v-col>
+                        </v-row>
+                        <div style="height:20px;"></div>
+                        <v-row>
+                            <v-col xs12 sm12 md6 xl6>
+                                <chartjs-line v-bind:datalabel="'PHP Frameworks'" v-bind:labels="chart.line.labels" v-bind:data="chart.line.data"></chartjs-line>
+                            </v-col>
+                            <v-col xs12 sm12 md6 xl6>
+                                <chartjs-horizontal-bar v-bind:datalabel="'JS Frameworks/Libraries'" v-bind:labels="chart.horizontal_bar.labels" v-bind:data="chart.horizontal_bar.data"></chartjs-horizontal-bar>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                </v-content>
+            </main>
+        </v-app>
+    </div>
+
+    <script src="assets/bower_components/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuetify/dist/vuetify.min.js"></script>
+    <script src="assets/bower_components/chart.js/dist/Chart.js"></script>
+    <script src="assets/js/vue-chjarts.js"></script>
+    <script src="app.js" type="text/javascript"></script>
+</body>
+
+</html>

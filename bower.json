@@ -1,0 +1,15 @@
+{
+  "name": "vue-admin-lte",
+  "authors": [
+    "Robert Soriano <sorianorobertc@gmail.com>"
+  ],
+  "description": "Simple Admin Template for Vue",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "dependencies": {
+    "vue": "^2.3.3",
+    "vue-router": "^2.5.3",
+    "chart.js": "^2.5.0"
+  }
+}
