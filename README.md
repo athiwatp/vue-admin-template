@@ -1,4 +1,4 @@
-# vue-admin-template
+# Vue Material Admin Template
 An AdminLTE inspired Vue.js Material Admin Template
 
 Vue Components Used:
