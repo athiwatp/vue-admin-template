@@ -21,16 +21,16 @@
                         <v-toolbar-item>Home</v-toolbar-item>
                         <v-toolbar-item>Contact</v-toolbar-item>
                         <v-menu bottom left offset-y origin="top right" transition="v-slide-y-transition">
-                        <v-btn icon dark slot="activator">
-                            <v-icon>more_vert</v-icon>
-                        </v-btn>
-                        <v-list>
-                            <v-list-item v-for="(item, i) in dropdown_items" :key="i">
-                            <v-list-tile>
-                                <v-list-tile-title v-text="item.title"></v-list-tile-title>
-                            </v-list-tile>
-                            </v-list-item>
-                        </v-list>
+                            <v-btn icon dark slot="activator">
+                                <v-icon>more_vert</v-icon>
+                            </v-btn>
+                            <v-list>
+                                <v-list-item v-for="(item, i) in dropdown_items" :key="i">
+                                    <v-list-tile>
+                                        <v-list-tile-title v-text="item.title"></v-list-tile-title>
+                                    </v-list-tile>
+                                </v-list-item>
+                            </v-list>
                         </v-menu>
                     </v-toolbar-items>
                 </v-toolbar>
@@ -42,6 +42,9 @@
                             <v-list-group v-if="item.items">
                                 <v-list-item slot="item">
                                     <v-list-tile ripple>
+                                        <v-list-tile-avatar>
+                                            <v-icon>{{ item.icon }}</v-icon>
+                                        </v-list-tile-avatar>
                                         <v-list-tile-title v-text="item.title" />
                                         <v-list-tile-action>
                                             <v-icon>keyboard_arrow_down</v-icon>
@@ -50,6 +53,9 @@
                                 </v-list-item>
                                 <v-list-item v-for="(subItem,i) in item.items" :key="i">
                                     <v-list-tile ripple>
+                                        <v-list-tile-avatar>
+                                            <v-icon>{{ subItem.icon }}</v-icon>
+                                        </v-list-tile-avatar>
                                         <v-list-tile-title v-text="subItem.title" />
                                     </v-list-tile>
                                 </v-list-item>
@@ -57,92 +63,172 @@
                             <v-subheader v-else-if="item.header" v-text="item.header"></v-subheader>
                             <v-divider v-else-if="item.divider" light></v-divider>
                             <v-list-item v-else>
-                            <v-list-tile ripple avatar>
-                                <v-list-tile-avatar>
-                                    <v-icon>{{ item.icon }}</v-icon>
-                                </v-list-tile-avatar>
-                                <v-list-tile-content>
-                                    <v-list-tile-title v-text="item.title" />
-                                </v-list-tile-content>
-                            </v-list-tile>
+                                <v-list-tile ripple avatar>
+                                    <v-list-tile-avatar>
+                                        <v-icon>{{ item.icon }}</v-icon>
+                                    </v-list-tile-avatar>
+                                    <v-list-tile-content>
+                                        <v-list-tile-title v-text="item.title" />
+                                    </v-list-tile-content>
+                                </v-list-tile>
                             </v-list-item>
                         </template>
                     </v-list>
                 </v-sidebar>
                 <v-content>
-                    <v-container fluid class="pa-3">
+                    <v-container fluid class="pa-4">
                         <h4>Dashboard</h4>
                         <v-row>
-                            <v-col xs12 sm12 md3 xl3>
+                            <v-col xs12 sm12 md3 xl3 v-for="(ib, index) in info_box" :key="index">
                                 <v-card horizontal>
-                                    <v-card-row height="130px" class="light-blue lighten-2 white--text">
-                                        <v-icon style="font-size: 60px; display: table; margin: 0 auto;">settings</v-icon>
+                                    <v-card-row height="130px" class="white--text" v-bind:class="[ib.color]">
+                                        <v-icon style="font-size: 60px; display: table; margin: 0 auto;">{{ ib.icon }}</v-icon>
                                     </v-card-row>
                                     <v-card-column>
-                                    <v-card-row height="75px">
-                                        <v-card-text>
-                                        <strong>CPU TRAFFIC</strong>
-                                        <div style="font-size: 40px;">90%</div>
-                                        </v-card-text>
-                                    </v-card-row>
+                                        <v-card-row height="75px">
+                                            <v-card-text>
+                                                <strong>{{ ib.title }}</strong>
+                                                <div style="font-size: 40px;">{{ ib.count }}</div>
+                                            </v-card-text>
+                                        </v-card-row>
                                     </v-card-column>
-                                </v-card> 
-                            </v-col>
-                            <v-col xs12 sm12 md3 xl3>
-                                <v-card horizontal>
-                                    <v-card-row height="130px" class="red lighten-1 white--text">
-                                        <v-icon style="font-size: 60px; display: table; margin: 0 auto;">thumb_up</v-icon>
-                                    </v-card-row>
-                                    <v-card-column>
-                                    <v-card-row height="75px">
-                                        <v-card-text>
-                                        <strong>Likes</strong>
-                                        <div style="font-size: 40px;">41,410</div>
-                                        </v-card-text>
-                                    </v-card-row>
-                                    </v-card-column>
-                                </v-card> 
-                            </v-col>
-                            <v-col xs12 sm12 md3 xl3>
-                                <v-card horizontal>
-                                    <v-card-row height="130px" class="green darken-1 white--text">
-                                        <v-icon style="font-size: 60px; display: table; margin: 0 auto;">shopping_cart</v-icon>
-                                    </v-card-row>
-                                    <v-card-column>
-                                    <v-card-row height="75px">
-                                        <v-card-text>
-                                        <strong>Sales</strong>
-                                        <div style="font-size: 40px;">760</div>
-                                        </v-card-text>
-                                    </v-card-row>
-                                    </v-card-column>
-                                </v-card> 
-                            </v-col>
-                            <v-col xs12 sm12 md3 xl3>
-                                <v-card horizontal>
-                                    <v-card-row height="130px" class="yellow darken-3 white--text">
-                                        <v-icon style="font-size: 60px; display: table; margin: 0 auto;">supervisor_account</v-icon>
-                                    </v-card-row>
-                                    <v-card-column>
-                                    <v-card-row height="75px">
-                                        <v-card-text>
-                                        <strong>New Members</strong>
-                                        <div style="font-size: 40px;">2,000</div>
-                                        </v-card-text>
-                                    </v-card-row>
-                                    </v-card-column>
-                                </v-card> 
+                                </v-card>
                             </v-col>
                         </v-row>
                         <div style="height:20px;"></div>
+                        <!-- ChartsJS -->
                         <v-row>
-                            <v-col xs12 sm12 md6 xl6>
-                                <chartjs-line v-bind:datalabel="'PHP Frameworks'" v-bind:labels="chart.line.labels" v-bind:data="chart.line.data"></chartjs-line>
+                            <v-col sm12 xs12>
+                                <v-card>
+                                    <v-card-row class="blue darken-2">
+                                        <v-card-title>
+                                            <span class="white--text">Top JavaScript and PHP Frameworks</span>
+                                            <v-spacer></v-spacer>
+                                            <div>
+                                                <v-menu id="marriot" bottom left origin="top right">
+                                                    <v-btn icon="icon" slot="activator" class="white--text">
+                                                        <v-icon>more_vert</v-icon>
+                                                    </v-btn>
+                                                    <v-list>
+                                                        <v-list-item>
+                                                            <v-list-tile>
+                                                                <v-list-tile-title>Monthly Report</v-list-tile-title>
+                                                            </v-list-tile>
+                                                        </v-list-item>
+                                                        <v-list-item>
+                                                            <v-list-tile>
+                                                                <v-list-tile-title>Yearly Report</v-list-tile-title>
+                                                            </v-list-tile>
+                                                        </v-list-item>
+                                                        <v-list-item>
+                                                            <v-list-tile>
+                                                                <v-list-tile-title>Clear Data</v-list-tile-title>
+                                                            </v-list-tile>
+                                                        </v-list-item>
+                                                    </v-list>
+                                                </v-menu>
+                                            </div>
+                                        </v-card-title>
+                                    </v-card-row>
+                                    <v-card-text>
+                                        <v-row>
+                                            <v-col xs12 sm12 md6 xl6>
+                                                <chartjs-line v-bind:datalabel="'PHP Frameworks'" v-bind:labels="chart.line.labels" v-bind:data="chart.line.data"></chartjs-line>
+                                            </v-col>
+                                            <v-col xs12 sm12 md6 xl6>
+                                                <chartjs-horizontal-bar v-bind:datalabel="'JS Frameworks/Libraries'" v-bind:labels="chart.horizontal_bar.labels" v-bind:data="chart.horizontal_bar.data"></chartjs-horizontal-bar>
+                                            </v-col>
+                                        </v-row>
+                                        <div style="height:20px;"></div>
+                                        <v-row>
+                                            <v-col xs12 sm12 md6 xl6>
+                                                <chartjs-pie v-bind:datalabel="'JS Frameworks/Libraries'" v-bind:labels="chart.horizontal_bar.labels" v-bind:data="chart.horizontal_bar.data"></chartjs-pie>
+                                            </v-col>
+                                            <v-col xs12 sm12 md6 xl6>
+                                                <chartjs-doughnut v-bind:datalabel="'PHP Frameworks'" v-bind:labels="chart.line.labels" v-bind:data="chart.line.data"></chartjs-doughnut>
+                                            </v-col>
+                                        </v-row>
+                                    </v-card-text>
+                                </v-card>
                             </v-col>
-                            <v-col xs12 sm12 md6 xl6>
-                                <chartjs-horizontal-bar v-bind:datalabel="'JS Frameworks/Libraries'" v-bind:labels="chart.horizontal_bar.labels" v-bind:data="chart.horizontal_bar.data"></chartjs-horizontal-bar>
+
+                        </v-row>
+
+                        <div style="height:20px;"></div>
+                        <!-- Google Maps -->
+                        <v-row>
+                            <v-col xs12>
+                                <v-card>
+                                    <v-card-row class="green darken-1">
+                                        <v-card-title>
+                                            <span class="white--text">Clients</span>
+                                        </v-card-title>
+                                    </v-card-row>
+                                    <v-card-text>
+                                        <gmap-map v-bind:center="{lat:14.599512, lng:120.984219}" v-bind:zoom="3" map-type-id="terrain" style="width: 100%; height: 400px">
+                                            <gmap-marker v-bind:key="index" v-for="(m, index) in markers" v-bind:position="m.position" v-bind:clickable="true" v-on:click="center=m.position"></gmap-marker>
+                                        </gmap-map>
+                                    </v-card-text>
+                                </v-card>
                             </v-col>
                         </v-row>
+                        <div style="height:20px;"></div>
+                        <!-- Lists -->
+                        <v-card>
+                            <v-card-row class="indigo">
+                                <v-card-title>
+                                    <span class="white--text">Orders and Products</span>
+                                </v-card-title>
+                            </v-card-row>
+                            <v-card-text>
+                                <v-row>
+                                    <v-col xs12 sm12 md6 xl6>
+                                        <h5>Latest Orders</h5>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Order ID</th>
+                                                    <th>Item</th>
+                                                    <th>Status</th>
+                                                    <th>Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="(o, index) in orders" :key="index" ripple>
+                                                    <td>{{ o.id }}</td>
+                                                    <td>{{ o.item }}</td>
+                                                    <td>
+                                                        <v-chip v-if="o.status == 'Pending'" class="green white--text">{{ o.status }}</v-chip>
+                                                        <v-chip v-else-if="o.status == 'Shipped'" class="orange white--text">{{ o.status }}</v-chip>
+                                                        <v-chip v-else-if="o.status == 'Delivered'" class="red white--text">{{ o.status }}</v-chip>
+                                                        <v-chip v-else-if="o.status == 'Processing'" class="light-blue white--text">{{ o.status }}</v-chip>
+                                                    </td>
+                                                    <td>{{ o.date }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </v-col>
+                                    <v-col xs12 sm12 md6 xl6>
+                                        <h5>Recently Added Products</h5>
+                                        <v-list-item v-for="(p, index) in products" v-bind:key="index">
+                                            <v-list-tile avatar ripple>
+                                                <v-list-tile-avatar>
+                                                    <img src="http://lorempixel.com/50/50/" alt="lorempixel">
+                                                </v-list-tile-avatar>
+                                                <v-list-tile-content>
+                                                    <v-list-tile-title>{{ p.title }}</v-list-tile-title>
+                                                    <v-list-tile-sub-title>{{ p.subtitle }}</v-list-tile-sub-title>
+                                                </v-list-tile-content>
+                                                <v-list-tile-action>
+                                                    <v-icon class="green--text">check</v-icon>
+                                                </v-list-tile-action>
+                                            </v-list-tile>
+                                        </v-list-item>
+                                    </v-col>
+                                </v-row>
+                            </v-card-text>
+                        </v-card>
+
                     </v-container>
                 </v-content>
             </main>
@@ -153,6 +239,9 @@
     <script src="https://unpkg.com/vuetify/dist/vuetify.min.js"></script>
     <script src="assets/bower_components/chart.js/dist/Chart.js"></script>
     <script src="assets/js/vue-chjarts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.js"></script>
+    <!-- needed for google maps -->
+    <script src="assets/js/vue-google-maps.js"></script>
     <script src="app.js" type="text/javascript"></script>
 </body>
 
